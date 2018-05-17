@@ -1,0 +1,89 @@
+/*
+* @Author: NiceMing
+* @Date:   2018-04-02 14:14:37
+*/
+.container {
+  .login-header {
+    & > i {
+      float: right;
+      margin: 1rem 2rem;
+      font-size: 3rem;
+    }
+
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 15%;
+    width: 100%;
+
+    & > p {
+      width: 70%;
+    }
+
+    .logo {
+      text-align: center;
+
+      img {
+        max-width: 40%;
+      }
+
+    }
+
+    .input {
+      margin: 4rem 0 2rem 0;
+
+      & > input {
+        width: 100%;
+        padding: 5px 0;
+        font-size: 1.6rem;
+        border: none;
+        border-bottom: 1px solid $main-blue;
+        outline: none;
+        background-color: #eee;
+      }
+
+    }
+
+    .submitBtn {
+      height: 4rem;
+      line-height: 4rem;
+      transition: background-color .1s;
+      text-align: center;
+      letter-spacing: 2px;
+      color: #fff;
+      background-color: $light-blue;
+
+      &.clickable {
+        background-color: $main-blue;
+      }
+
+    }
+
+  }
+
+  .login-footer {
+    position: absolute;
+    bottom: 1rem;
+    width: 100%;
+    text-align: center;
+
+    & > a {
+      color: #555;
+    }
+
+  }
+
+  .showAbout-enter-active, .showAbout-leave-active {
+    transition: all .5s;
+  }
+
+  .showAbout-enter, .showAbout-leave-active {
+    transform: translate(0, 100%);
+    opacity: .5;
+  }
+
+}

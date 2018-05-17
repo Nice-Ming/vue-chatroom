@@ -1,0 +1,169 @@
+/*
+* @Author: NiceMing
+* @Date:   2018-04-02 14:14:37
+*/
+.container {
+  display: flex;
+  flex-direction: column;
+
+  .chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+    height: 4rem;
+    padding: 0 1rem;
+    font-size: 1.8rem;
+    color: #fff;
+    background-color: $main-blue;
+    box-shadow: 0 0 10px $main-blue;
+
+    .iconfont {
+      font-size: 2.2rem;
+    }
+
+  }
+
+  .chat-content {
+    flex: 1;
+    margin-bottom: .5rem;
+    overflow: auto;
+
+    .message-list {
+      & > li {
+        padding: .5rem;
+      }
+
+      li.mine {
+        .info {
+          flex-direction: row-reverse;
+        }
+
+        .content {
+          float: right;
+          color: #fff;
+          background-color: $main-blue;
+        }
+
+      }
+
+      li.others {
+        .content {
+          float: left;
+          background-color: $main-yellow;
+        }
+
+      }
+
+      .date {
+        font-size: 1rem;
+        text-align: center;
+      }
+
+      .info {
+        display: flex;
+        align-items: center;
+
+        .nickname {
+          margin: 0 .4rem;
+          color: #333;
+        }
+
+        .location {
+          font-size: 1rem;
+        }
+
+        .portrait {
+          display: inline-block;
+          width: 3.2rem;
+
+          & > img {
+            max-width: 100%;
+          }
+
+        }
+
+      }
+
+      .content {
+        max-width: 70%;
+        max-height: 250px;
+        padding: .5rem 1rem;
+        border-radius: 10px;
+      }
+
+    }
+
+  }
+
+  .chat-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: .5rem 0;
+    box-shadow: 0 0 10px #ddd;
+
+    input {
+      flex: 1;
+      font-size: 1.6rem;
+      border: none;
+      border-bottom: 1px solid $main-blue;
+      outline: none;
+      background-color: #eee;
+    }
+
+    i {
+      margin: 0 .6rem 0;
+      font-size: 2.4rem;
+      transition: color .1s;
+    }
+
+  }
+
+  .emoji-wrap {
+    height: 16rem;
+    overflow: auto;
+
+    .emoji-list {
+      & > li {
+        float: left;
+        width: 12.5%;
+        padding: .5rem 0;
+        font-size: 2.4rem;
+        text-align: center;
+      }
+
+    }
+
+    &.showEmoji-enter-active {
+      transition: all .3s;
+    }
+
+    &.showEmoji-enter, &.showEmoji-leave-to {
+      transform: translate(0, 100%);
+    }
+
+  }
+
+  .top-tip {
+    position: absolute;
+    top: 4rem;
+    width: 100%;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    text-align: center;
+    color: #fff;
+    background-color: $light-blue;
+
+    &.showTip-enter-active, &.showTip-leave-active {
+      transition: all .5s;
+    }
+
+    &.showTip-enter, &.showTip-leave-to {
+      transform: translate3d(0, -100%, 0);
+      opacity: 0;
+    }
+
+  }
+
+}

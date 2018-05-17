@@ -1,0 +1,58 @@
+/*
+* @Author: NiceMing
+* @Date:   2018-04-02 14:02:37
+*/
+$main-blue: #286cf9;
+$main-yellow: #fee033;
+$light-blue: #96bcff;
+
+.clearfix::after {
+  display: block;
+  visibility: hidden;
+  clear: both;
+  height: 0;
+  line-height: 0;
+  content: '';
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #eee;
+}
+
+.submitBtn.clickable {
+  background-color: $main-blue;
+}
+
+.emojiBtn, .sendBtn {
+  &.clickable {
+    color: $main-blue;
+  }
+
+}
+
+//--------------------------切换动画--------------------------
+.slideToBottom-enter-active, .slideToLeft-enter-active, .slideToRight-enter-active {
+  transition: all .5s;
+}
+
+//从顶部滑向底部
+.slideToBottom-enter {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+// 从右边滑向左边
+.slideToLeft-enter {
+  transform: translateX(20rem);
+  opacity: 0;
+}
+
+// 从左边滑向右边
+.slideToRight-enter {
+  transform: translateX(-20rem);
+  opacity: 0;
+}
