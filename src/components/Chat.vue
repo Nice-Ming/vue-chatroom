@@ -146,6 +146,7 @@ export default {
         location: this.location,
         content: this.inputText
       })
+
       this.pushMine()
       this.inputText = ''
       this.isShowEmoji = false

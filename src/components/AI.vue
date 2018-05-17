@@ -49,6 +49,7 @@ export default {
       location: ''
     }
   },
+
   beforeRouterEnter(to, from, next) {
     if (!localStorage.nickname) {
       next('/')
