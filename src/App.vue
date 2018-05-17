@@ -16,6 +16,7 @@ export default {
 
   methods: {
     getLocation() {
+      // 进行ip定位
       this.axios.get('http://www.niceming.cn:3000/api/ip').then(
         res => {
           let location = res.data.province + res.data.city

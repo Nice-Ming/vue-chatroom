@@ -88,6 +88,7 @@ export default {
         return
       }
 
+      // 智能机器人应答的接口
       let url = 'http://www.niceming.cn:3000/api/chat/AI'
       let data = {
         city: this.location,

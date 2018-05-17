@@ -88,6 +88,7 @@ export default {
   },
 
   mounted() {
+    // 监听通信事件
     socket.on('online', name => {
       if (!name) {
         return
@@ -101,6 +102,7 @@ export default {
       this.messages.push(data)
     })
 
+    // 发送上线事件
     socket.emit('online', this.nickname)
   },
 
