@@ -26,7 +26,6 @@
 			<i></i>
 			<input v-model="inputText"
 			       @keyup.enter="sendMsg"
-			       placeholder="跟智障机器人说点什么吧"
 			       autofocus
 			>
 			<i class="sendBtn btn iconfont icon-icon_send_fill"

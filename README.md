@@ -1,6 +1,6 @@
-# nice-chatchat
+# nice-chat
 
-> A Vue.js project
+> 用Vue编写的一个智能聊天室 有群聊和智能机器人问答功能
 
 ## Build Setup
 

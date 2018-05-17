@@ -66,9 +66,8 @@ export default {
   name: 'Chat',
   data() {
     return {
-      id: '',
-      inputText: '',
       messages: [],
+      inputText: '',
       nickname: '',
       portrait: '',
       location: '',
