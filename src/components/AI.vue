@@ -9,32 +9,30 @@
 			<div class="chat-content" ref="chatContent">
 				<ul class="message-list">
 					<li class="clearfix"
-					v-for="msg of messages"
-					:class="{'others': msg.from === 'ai', 'mine': msg.from !== 'ai'}">
-					<p class="date">{{ msg.date }}</p>
-					<p class="info">
-						<span class="portrait">
-							<img :src="msg.portrait">
-						</span>
-						<span class="nickname">{{ msg.nickname }}</span>
-					</p>
-					<p class="content" v-html="msg.content"></p>
-				</li>
-			</ul>
-		</div>
-		<footer class="chat-footer">
-			<i></i>
-			<input v-model="inputText"
-			       @keyup.enter="sendMsg"
-			       autofocus
-			>
-			<i class="sendBtn btn iconfont icon-icon_send_fill"
-			   :class="{'clickable': clickable}"
-			   @click="sendMsg"
-			></i>
-		</footer>
-	</div>
-</transition>
+					    v-for="msg of messages"
+					    :class="{'others': msg.from === 'ai', 'mine': msg.from !== 'ai'}"
+          >
+  					<p class="date">{{ msg.date }}</p>
+  					<p class="info">
+  						<span class="portrait">
+  							<img :src="msg.portrait">
+  						</span>
+  						<span class="nickname">{{ msg.nickname }}</span>
+  					</p>
+  					<p class="content" v-html="msg.content"></p>
+  				</li>
+  			</ul>
+  		</div>
+  		<footer class="chat-footer">
+  			<i></i>
+  			<input v-model="inputText" @keyup.enter="sendMsg" autofocus>
+        <i class="sendBtn btn iconfont icon-icon_send_fill"
+           :class="{'clickable': clickable}"
+           @click="sendMsg"
+        ></i>
+      </footer>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -77,10 +75,12 @@ export default {
         content: '有什么可以帮您的吗？'
       })
     }, 1000)
+  },
 
-    setTimeout(() => {
+  activated() {
+    this.$nextTick(() => {
       this.$refs.chatContent.scrollTop = this.$refs.chatContent.scrollHeight
-    }, 20)
+    })
   },
 
   methods: {
@@ -90,7 +90,7 @@ export default {
       }
 
       // 智能机器人应答的接口
-      let url = 'http://www.niceming.cn:3000/api/chat/AI'
+      let url = 'http://111.231.92.206:3000/api/chat/AI'
       let data = {
         city: this.location,
         userId: this.nickname,
@@ -140,6 +140,13 @@ export default {
 
     getTime() {
       return this.moment().format('YYYY-MM-DD HH:mm:ss')
+    },
+
+    fixedBottom() {
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        this.$refs.chatContent.scrollTop = this.$refs.chatContent.scrollHeight
+      }, 20)
     }
   },
 
@@ -153,9 +160,7 @@ export default {
     messages: {
       handler() {
         localStorage.record_ai = JSON.stringify(this.messages)
-        setTimeout(() => {
-          this.$refs.chatContent.scrollTop = this.$refs.chatContent.scrollHeight
-        }, 20)
+        this.fixedBottom()
       },
       deep: true
     }

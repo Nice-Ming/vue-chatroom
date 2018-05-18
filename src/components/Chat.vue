@@ -9,58 +9,59 @@
 			<div class="chat-content" ref="chatContent">
 				<ul class="message-list">
 					<li class="clearfix"
-					    v-for="msg of messages"
-							:class="{'others': msg.from !== 'mine', 'mine': msg.from === 'mine'}"
-					>
-						<p class="date">{{ msg.date }}</p>
-						<p class="info">
-							<span class="portrait">
-								<img :src="msg.portrait">
-							</span>
-							<span class="nickname">{{ msg.nickname }}</span>
-							<span class="location" v-if="msg.location">{{ `[${msg.location}]` }}</span>
-						</p>
-						<p class="content">{{ msg.content }}</p>
-					</li>
-			</ul>
-		</div>
-		<footer class="chat-footer">
-			<i class="iconfont icon-smile emojiBtn"
-			   :class="{'clickable': isShowEmoji}"
-			   @click="isShowEmoji = !isShowEmoji"
-			></i>
-			<input ref="inputBox"
-			       v-model="inputText"
-						 @keyup.enter="sendMsg"
-			       placeholder="左上角还有智能机器人哦"
-			       autofocus
-			>
-			<i class="sendBtn iconfont icon-icon_send_fill"
-			   :class="{'clickable': clickable}"
-			   @click="sendMsg"
-			></i>
-		</footer>
-		<transition name="showEmoji">
-			<div class="emoji-wrap" v-show="isShowEmoji">
-				<ul class="emoji-list">
-					<li v-for="item of emoji" @click="inputEmoji(item)">{{ item }}</li>
-				</ul>
-			</div>
-		</transition>
-		<transition name="showTip">
-			<div class="top-tip" v-show="isShowTip">
-					<span class="tip-text">{{ onlineTip }}</span>
-			</div>
-		</transition>
-	</div>
-</transition>
+              v-for="msg of messages"
+              :class="{'others': msg.from !== 'mine', 'mine': msg.from === 'mine'}"
+            >
+            <p class="date">{{ msg.date }}</p>
+            <p class="info">
+               <span class="portrait">
+                <img :src="msg.portrait">
+              </span>
+              <span class="nickname">{{ msg.nickname }}</span>
+              <span class="location" v-if="msg.location">{{ `[${msg.location}]` }}</span>
+            </p>
+            <p class="content">{{ msg.content }}</p>
+          </li>
+        </ul>
+      </div>
+      <footer class="chat-footer">
+        <i class="iconfont icon-smile emojiBtn"
+           :class="{'clickable': isShowEmoji}"
+           @click="isShowEmoji = !isShowEmoji"
+        ></i>
+        <input ref="inputBox"
+               v-model="inputText"
+               @keyup.enter="sendMsg"
+               @focus="hideEmoji"
+               placeholder="左上角还有智能机器人哦"
+               autofocus
+        >
+        <i class="sendBtn iconfont icon-icon_send_fill"
+           :class="{'clickable': clickable}"
+           @click="sendMsg"
+        ></i>
+      </footer>
+      <transition name="showEmoji">
+        <div class="emoji-wrap" v-show="isShowEmoji">
+          <ul class="emoji-list">
+            <li v-for="item of emoji" @click="inputEmoji(item)">{{ item }}</li>
+          </ul>
+        </div>
+      </transition>
+      <transition name="showTip">
+       <div class="top-tip" v-show="isShowTip">
+         <span class="tip-text">{{ onlineTip }}</span>
+       </div>
+      </transition>
+    </div>
+  </transition>
 </template>
 
 <script>
 import io from 'socket.io-client'
 
 // 建立socket.io通信
-const socket = io.connect('http://localhost:8081')
+const socket = io.connect('http://111.231.92.206:3000')
 
 export default {
   name: 'Chat',
@@ -114,10 +115,12 @@ export default {
     if (localStorage.record_chat) {
       this.messages = JSON.parse(localStorage.record_chat)
     }
+  },
 
-    setTimeout(() => {
+  activated() {
+    this.$nextTick(() => {
       this.$refs.chatContent.scrollTop = this.$refs.chatContent.scrollHeight
-    }, 20)
+    })
   },
 
   methods: {
@@ -127,6 +130,10 @@ export default {
       this.timer = setTimeout(() => {
         this.isShowTip = false
       }, 1500)
+    },
+
+    hideEmoji() {
+      this.isShowEmoji = false
     },
 
     inputEmoji(emoji) {
@@ -166,6 +173,13 @@ export default {
 
     getTime() {
       return this.moment().format('YYYY-MM-DD HH:mm:ss')
+    },
+
+    fixedBottom() {
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        this.$refs.chatContent.scrollTop = this.$refs.chatContent.scrollHeight
+      }, 20)
     }
   },
 
@@ -179,9 +193,7 @@ export default {
     messages: {
       handler() {
         localStorage.record_chat = JSON.stringify(this.messages)
-        setTimeout(() => {
-          this.$refs.chatContent.scrollTop = this.$refs.chatContent.scrollHeight
-        }, 20)
+        this.fixedBottom()
       },
       deep: true
     }

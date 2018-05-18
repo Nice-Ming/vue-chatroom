@@ -27,7 +27,6 @@
 
   .chat-content {
     flex: 1;
-    margin-bottom: .5rem;
     overflow: auto;
 
     .message-list {
@@ -77,6 +76,7 @@
         .portrait {
           display: inline-block;
           width: 3.2rem;
+          height: 3.2rem;
 
           & > img {
             max-width: 100%;
