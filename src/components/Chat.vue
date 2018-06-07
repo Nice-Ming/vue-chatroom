@@ -61,7 +61,7 @@
 import io from 'socket.io-client'
 
 // 建立socket.io通信
-const socket = io.connect('http://111.231.92.206:3000')
+const socket = io.connect('http://localhost:8081')
 
 export default {
   name: 'Chat',
